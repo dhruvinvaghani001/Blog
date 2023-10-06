@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    background-color: #E4E4E4;
+}
+
+.nav__items ul li {
+    position: relative;
+}
+
+.nav__items ul li a {
+    cursor: pointer;
+}
+.fa-bars{
+    font-size: 20px;
+    margin-right: 32px;
+}
