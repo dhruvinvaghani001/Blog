@@ -1,12 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LogoutButton from './LogoutBUtton';
+import LogoutButton from './LogoutButton';
 
 
 const Header = () => {
     const isAuth = useSelector(state => state.auth.status);
-    // const isAuth = false;
+    
     const navLinks = [
         {
             name: "Home",
