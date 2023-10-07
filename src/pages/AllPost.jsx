@@ -22,7 +22,7 @@ const AllPost = () => {
     }
 
     return (
-        <div className='w-full p-8'>
+        <div className='w-full p-8 flex flex-col justify-start mt-10'>
             <div className="w-full flex justify-center">
                 <div className="gap-12 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
                     {
