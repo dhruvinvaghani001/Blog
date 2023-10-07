@@ -16,6 +16,7 @@ import EditPost from './pages/EditPost.jsx'
 import Post from './pages/Post.jsx'
 import Home from './pages/Home.jsx'
 import Protected from './components/AuthLayout.jsx'
+import Admin from './pages/Admin.jsx'
 
 
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement:<ErrorPage />,
+
     children: [
       {
         path: "/",
@@ -69,11 +70,19 @@ const router = createBrowserRouter([
           <Protected authentication>
             <EditPost />
           </Protected>)
-      }, {
+      },
+      {
         path: "post/:slug",
         element: (
           <Protected authentication>
             <Post />
+          </Protected>)
+      },
+      {
+        path: "admin",
+        element: (
+          <Protected authentication>
+            <Admin />
           </Protected>)
       }
     ]

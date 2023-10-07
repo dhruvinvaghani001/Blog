@@ -6,7 +6,7 @@ import LogoutButton from './LogoutButton';
 
 const Header = () => {
     const isAuth = useSelector(state => state.auth.status);
-    
+
     const navLinks = [
         {
             name: "Home",
@@ -33,6 +33,11 @@ const Header = () => {
             path: '/addpost',
             active: isAuth
         },
+        {
+            name: "Admin",
+            path: "/admin",
+            active: isAuth
+        }
     ]
 
     return (

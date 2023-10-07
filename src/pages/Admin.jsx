@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import service from '../appwrite/blogs'
+import service from '../appwrite/blogs';
 import { PostCard } from '../components';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const AllPost = () => {
-
+const Admin = () => {
     const [posts, setPosts] = useState([]);
 
+    const userData = useSelector((state) => state.auth.userData);
+
+
     useEffect(() => {
-        service.getPosts([]).then((posts) => {
+        service.getUserPosts(userData.$id).then((posts) => {
             if (posts) {
                 setPosts(posts.documents);
             }
         })
     }, []);
+
+    if(posts.length === 0){
+        return <div className='w-full h-[500px] p-8 flex justify-center items-center'>
+            <h1 className='text-[32px] font-semibold'>Apologies, but it seems you haven't made a post</h1>
+        </div>
+    }
 
     return (
         <div className='w-full p-8'>
@@ -33,6 +41,11 @@ const AllPost = () => {
             </div>
         </div>
     )
+
+
+    return (
+        <div>Admin</div>
+    )
 }
 
-export default AllPost
+export default Admin;

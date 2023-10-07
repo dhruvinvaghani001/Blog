@@ -5,41 +5,46 @@ import Select from '../Select';
 import Input from '../Input';
 import RTE from '../RTE';
 import service from '../../appwrite/blogs';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { DevTool } from '@hookform/devtools';
+
 
 const BlogForm = ({ post }) => {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
     const selectref = useRef(null);
+    const categoryref = useRef(null);
 
+    const category = useSelector((state) => state.category.categories);
+    const categoryOptions = category?.map((iteam) => ({ name: iteam.name, id: iteam.$id }));
 
-
-    const { register, handleSubmit, formState, setValue, control, watch, getValues } = useForm({
-        defaultValue: {
-            title: "post?.title || ''",
-            slug: post?.slug || '',
+    const form = useForm({
+        defaultValues: {
+            title: post?.title || '',
+            slug: post?.$id || '',
             content: post?.content || '',
-            status: post?.status || 'active',
-        },
-    });;
+            status: post?.status || "active",
+        }
+    })
+    const { register, control, handleSubmit, formState, watch, getValues, setValue } = form;
     const { errors: formErrors } = formState;
 
-    console.log(formErrors);
-
     const submit = async (data) => {
-        //if post exist means we have to update post
-        console.log(data);
-
+        // if post is there then we have to edit from page
+        const status = selectref.current.value;
+        const categoryId = categoryref.current.value;
         if (post) {
             const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
+
             if (file) {
                 await service.deleteFile(post.featuredImage);
             }
             const dbpost = await service.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined
+                featuredImage: file ? file.$id : undefined,
+                status: status,
+                categoryId
             })
             if (dbpost) {
                 navigate("/")
@@ -48,9 +53,6 @@ const BlogForm = ({ post }) => {
         //if post not there then we have to create post 
         else {
             const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
-            const status = selectref.current.value;
-
-            console.log(status);
             if (file) {
                 const dbpost = await service.createPost({
                     ...data,
@@ -58,6 +60,7 @@ const BlogForm = ({ post }) => {
                     slug: data.slug,
                     featuredImage: file.$id,
                     userId: userData.$id,
+                    categoryId
                 })
                 if (dbpost) {
                     navigate("/");
@@ -77,7 +80,7 @@ const BlogForm = ({ post }) => {
     });
 
     useEffect(() => {
-        const subcription = - watch((value, { name }) => {
+        const subcription = watch((value, { name }) => {
             if (name === 'title') {
                 setValue('slug', slugTransForm(value.title, { shouldValidate: true }));
             }
@@ -85,9 +88,12 @@ const BlogForm = ({ post }) => {
 
     }, [watch, slugTransForm, setValue])
 
+
     return (
         <div className='flex justify-center items-center mt-20 w-full'>
+
             <form className='w-3/4 p-6 bg-newwhite relative rounded-lg' onSubmit={handleSubmit(submit)}>
+
                 <div className="heding block items-center flex-col w-full mb-10 ">
                     <h1 className='text-4xl font-bold mb-3 text-gray-900 uppercase tracking-wide'>{post ? 'Edit Post' : 'Create Post'}</h1>
                 </div>
@@ -126,7 +132,11 @@ const BlogForm = ({ post }) => {
                             {formErrors.slug && <p role="alert" className='text-red-600 mt-1'>{formErrors.slug.message}</p>}
                         </div>
                         <div className="mb-6 ">
-                            <Select ref={selectref} options={["active", "inactive"]} label="status"></Select>
+                            <Select ref={selectref} status={post?.status} options={["active", "inactive"]} label="status"></Select>
+                            {formErrors.select && <p role="alert" className='text-red-600 mt-1'>{formErrors.select.message}</p>}
+                        </div>
+                        <div className="mb-6 ">
+                            <Select ref={categoryref} category={post?.categoryId} options={categoryOptions} label="Category"></Select>
                             {formErrors.image && <p role="alert" className='text-red-600 mt-1'>{formErrors.image.message}</p>}
                         </div>
                     </div>

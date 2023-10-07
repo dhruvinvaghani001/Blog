@@ -1,4 +1,4 @@
-import { Client, Databases, Query, Storage,ID } from "appwrite"
+import { Client, Databases, Query, Storage, ID } from "appwrite"
 import { conf } from "../config/conf";
 
 export class Services {
@@ -12,7 +12,7 @@ export class Services {
         this.storage = new Storage(this.client);
     }
 
-    async createPost({ title, slug, content, featuredImage, userId, status }) {
+    async createPost({ title, slug, content, featuredImage, userId, status, categoryId }) {
         try {
             console.log(conf.appwriteCollectionId)
             return await this.databases.createDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug,
@@ -21,7 +21,8 @@ export class Services {
                     content,
                     featuredImage,
                     userId,
-                    status
+                    status,
+                    categoryId
                 })
         } catch (error) {
             console.log(error)
@@ -30,13 +31,14 @@ export class Services {
         }
     }
 
-    async updatePost(slug, { title, content, featuredImage, status }) {
+    async updatePost(slug, { title, content, featuredImage, status, categoryId }) {
         try {
             return await this.databases.updateDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug, {
                 title,
                 content,
                 featuredImage,
-                status
+                status,
+                categoryId
             });
 
         } catch (error) {
@@ -63,15 +65,26 @@ export class Services {
         }
     }
 
-    async getPosts(queries = [Query.equal("status", true)]) {
+    async getPosts(queries = [Query.equal("status", "active")]) {
         try {
-            return await this.databases.listDocuments(conf.appwriteDatabaseId, conf.appwriteCollectionId, queries);
+            return await this.databases.listDocuments(conf.appwriteDatabaseId, conf.appwriteCollectionId, [Query.equal("status", "active")]);
         } catch (error) {
             console.log(error);
             console.log("eror in get posts by query");
             return false;
         }
     }
+
+    async getUserPosts(userId) {
+        try {
+            return await this.databases.listDocuments(conf.appwriteDatabaseId, conf.appwriteCollectionId, [Query.equal("userId", userId)]);
+        } catch (error) {
+            console.log(error);
+            console.log("eror in get posts by query");
+            return false;
+        }
+    }
+
 
     //file upload services
 

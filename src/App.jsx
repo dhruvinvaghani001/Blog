@@ -6,6 +6,8 @@ import { login, logout } from "./store/authSlice";
 import Header from "./components/header/Header";
 import Fotter from "./components/fotter/Fotter";
 import { Outlet } from "react-router-dom";
+import { loadCategory } from "./store/categorySlice";
+import categorySerive from "./appwrite/category";
 
 
 function App() {
@@ -24,10 +26,19 @@ function App() {
         }
       }).catch(() => dispatch(logout()))
       .finally(() => setloading(false));
-    }, []);
+  }, []);
 
+  useEffect(() => {
 
-   
+    categorySerive.getCategories().then((category) => {
+      if (category) {
+        const  category2  = category.documents;
+        console.log(category2);
+        dispatch(loadCategory({ category2 }));
+      }
+    });
+  }, []);
+
 
   return (
     <>
