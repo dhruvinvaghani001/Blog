@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react'
 import service from '../appwrite/blogs';
 import { Link } from 'react-router-dom';
 import categorySerive from '../appwrite/category';
+import { useSelector } from 'react-redux';
 
 const PostCard = ({ post }) => {
-    const [category, setCategory] = useState();
-    useEffect(() => {
-        if (post) {
-            categorySerive.getCategory(post.categoryId).then((data) => {
-                setCategory(data.name)
-            })
-        }
-    }, []);
+
+
+    const categories = useSelector((state) => state.category.categories);
+    const { name: category } = { ...categories.filter((iteam) => iteam.$id === post.categoryId)[0] };
 
     const date = new Date(post.$createdAt)
     const formatedDate = date.toLocaleString('en-IN', { month: "long", day: "2-digit", year: "numeric" });
@@ -25,9 +22,9 @@ const PostCard = ({ post }) => {
 
                 <div className="px-6 py-4 shadow-lg">
                     <div className="font-bold text-xl mb-2">{post.title}</div>
-                    {category && <div className="tag my-8">
+                    <div className="tag my-8">
                         <span className='px-2 py-2 rounded-md bg-violet-500 uppercase text-white font-bold text-sm inline text-center items-center tracking-normal'>{category}</span>
-                    </div>}
+                    </div>
                     <p className="text-gray-700 text-md mb-2 font-semibold tracking-wider">
                         {formatedDate}
                     </p>

@@ -1,35 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import service from '../appwrite/blogs'
-import { PostCard } from '../components'
+import { Loading, PostCard } from '../components'
 import categorySerive from '../appwrite/category';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadCategory } from '../store/categorySlice';
 import { Link } from 'react-router-dom';
 
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true); ''
     const [category, setCategory] = useState([]);
     const dispatch = useDispatch();
 
+    const userData = useSelector((state) => state.auth.status);
+    console.log(userData);
     useEffect(() => {
+        if(!userData){
+            setLoading(false);
+        }
         service.getPosts([]).then((posts) => {
             if (posts) {
                 setPosts(posts.documents);
+                setLoading(false);
             }
         })
 
     }, []);
 
+    if (loading) {
+        return <div className='w-full h-[500px] flex justify-center items-center'><Loading /></div>
+    }
 
-
-
-    if (posts.length === 0) {
+    if (!userData) {
 
         return <section class="mb-40 bg-newwhite h-full">
             <div class="bg-bgprimary py-24 px-6 text-center ">
                 <h1 class="mt-2 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
-                Your Gateway to Knowledge and Inspiration <br /><span class="text-primary">Explore, Learn, Inspire</span>
+                    Your Gateway to Knowledge and Inspiration <br /><span class="text-primary">Explore, Learn, Inspire</span>
                 </h1>
                 <Link to="/login" class="mb-2 inline-block rounded bg-primary px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] "
                     data-te-ripple-init data-te-ripple-color="light" href="#!" role="button">Get started</Link>

@@ -17,13 +17,7 @@ class CategoryServices {
             throw error;
         }
     }
-    async getCategory(documentId) {
-        try {
-            return await this.databases.getDocument(conf.appwriteDatabaseId, conf.appwriteCategoryCollectionId, documentId);
-        } catch (error) {
-            throw error;
-        }
-    }
+    
 }
 
 

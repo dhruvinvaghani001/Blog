@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import service from '../appwrite/blogs'
-import { PostCard } from '../components';
+import { Loading, PostCard } from '../components';
 import { Link } from 'react-router-dom';
 
 const AllPost = () => {
 
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         service.getPosts([]).then((posts) => {
             if (posts) {
                 setPosts(posts.documents);
+                setLoading(false);
             }
         })
     }, []);
+
+    if (loading) {
+        return <div className='w-full h-[500px] flex justify-center items-center'><Loading /></div>
+    }
 
     return (
         <div className='w-full p-8'>
@@ -26,10 +32,7 @@ const AllPost = () => {
                             </div>
                         ))
                     }
-
-
                 </div>
-
             </div>
         </div>
     )

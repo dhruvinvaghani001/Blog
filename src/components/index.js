@@ -7,6 +7,7 @@ import Select from './Select';
 import Input from './Input';
 import RTE from './RTE';
 import Protected from './AuthLayout';
+import Loading from './Loading';
 
 export {
     Signup,
@@ -17,5 +18,6 @@ export {
     Select,
     Input,
     RTE,
-    Protected
+    Protected,
+    Loading
 }
