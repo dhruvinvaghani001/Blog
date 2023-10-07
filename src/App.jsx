@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-
+    console.log("hello");
     categorySerive.getCategories().then((category) => {
       console.log(category);
       if (category) {
