@@ -11,6 +11,7 @@ class CategoryServices {
 
     async getCategories() {
         try {
+            console.log(conf.appwriteCategoryCollectionId);
             return await this.databases.listDocuments(conf.appwriteDatabaseId, conf.appwriteCategoryCollectionId);
         } catch (error) {
             throw error;
