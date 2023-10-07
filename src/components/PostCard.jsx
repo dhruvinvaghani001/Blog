@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import categorySerive from '../appwrite/category';
 import { useSelector } from 'react-redux';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, isAdmin }) => {
 
 
     const categories = useSelector((state) => state.category.categories);
@@ -24,6 +24,7 @@ const PostCard = ({ post }) => {
                     <div className="font-bold text-xl mb-2">{post.title}</div>
                     <div className="tag my-8">
                         <span className='px-2 py-2 rounded-md bg-violet-500 uppercase text-white font-bold text-sm inline text-center items-center tracking-normal'>{category}</span>
+                        {isAdmin && <span className={`ml-4 px-2 py-2 rounded-md ${post.status==="active" ? 'bg-green-500' : 'bg-red-500' }  uppercase text-white font-bold text-sm inline text-center items-center tracking-normal`}>{post.status === "active" ? 'Active' : 'Inactive'}</span>}
                     </div>
                     <p className="text-gray-700 text-md mb-2 font-semibold tracking-wider">
                         {formatedDate}

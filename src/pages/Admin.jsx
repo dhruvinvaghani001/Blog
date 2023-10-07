@@ -36,7 +36,7 @@ const Admin = () => {
                     {
                         posts.map((post) => (
                             <div className='p-2' key={post.$id}>
-                                <PostCard post={post}></PostCard>
+                                <PostCard isAdmin={true} post={post}></PostCard>
                             </div>
                         ))
                     }
@@ -46,11 +46,6 @@ const Admin = () => {
 
             </div>
         </div>
-    )
-
-
-    return (
-        <div>Admin</div>
     )
 }
 
