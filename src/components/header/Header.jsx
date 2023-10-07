@@ -42,7 +42,7 @@ const Header = () => {
 
     return (
         <>
-            <nav className="bg-newhite  border-b-2 border-indigo-500">
+            {/* <nav className="bg-newhite  border-b-2 border-indigo-500">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <Link to="/" className="flex items-center">
                         <img src="/vite.svg" className="h-8 mr-3" alt="Flowbite Logo" />
@@ -73,7 +73,7 @@ const Header = () => {
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> */}
 
             <nav class="bg-white border-gray-200 dark:bg-gray-900">
                 <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
