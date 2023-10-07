@@ -29,7 +29,7 @@ const Home = () => {
         return <section class="mb-40 bg-newwhite h-full">
             <div class="bg-bgprimary py-24 px-6 text-center ">
                 <h1 class="mt-2 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
-                    The best offer on the market <br /><span class="text-primary">for your business</span>
+                Your Gateway to Knowledge and Inspiration <br /><span class="text-primary">Explore, Learn, Inspire</span>
                 </h1>
                 <Link to="/login" class="mb-2 inline-block rounded bg-primary px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] "
                     data-te-ripple-init data-te-ripple-color="light" href="#!" role="button">Get started</Link>
