@@ -8,7 +8,7 @@ import categorySerive from '../appwrite/category';
 
 const Post = (props) => {
     const [post, setPost] = useState();
-    const [category,setCategory] = useState("");
+    const [category, setCategory] = useState("");
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -30,9 +30,9 @@ const Post = (props) => {
         } else {
             navigate("/");
         }
-    }, [slug, navigate,post?.categoryId]);
+    }, [slug, navigate, post?.categoryId]);
 
-   
+
 
     const deletePost = () => {
         const proced = confirm("Are you sure want to delete ?")
@@ -61,9 +61,11 @@ const Post = (props) => {
                             {post.title}
                         </h2>
                     </div>
-                    <div className="tag my-8">
-                        <span className='px-4 py-2 rounded-md bg-violet-500 uppercase text-white font-bold text-md inline text-center items-center tracking-normal'>{category}</span>
-                    </div>
+                    {category &&
+                        <div className="tag my-8">
+                            <span className='px-4 py-2 rounded-md bg-violet-500 uppercase text-white font-bold text-md inline text-center items-center tracking-normal'>{category}</span>
+                        </div>
+                    }
                     <img src={service.getFilePreview(post.featuredImage)} alt={post.title} className="w-full object-cover lg:rounded" />
                 </div>
 
