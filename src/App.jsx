@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
 
     categorySerive.getCategories().then((category) => {
+      console.log(category);
       if (category) {
         const  category2  = category.documents;
         console.log(category2);
