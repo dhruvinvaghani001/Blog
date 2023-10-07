@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import service from '../appwrite/blogs'
 import { Loading, PostCard } from '../components';
 import { Link } from 'react-router-dom';
+import Header from '../components/header/Header';
 
 const AllPost = () => {
 
@@ -22,6 +23,8 @@ const AllPost = () => {
     }
 
     return (
+        <>
+        <Header></Header>
         <div className='w-full p-8 flex flex-col justify-start mt-10'>
             <div className="w-full flex justify-center">
                 <div className="gap-12 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
@@ -35,6 +38,7 @@ const AllPost = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 
