@@ -56,14 +56,17 @@ const Header = () => {
                         </svg>
                     </button>
                     <div className={`${!acclass ? "hidden" : null} w-full md:block md:w-auto`}>
-                        <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
+                        <ul className={`${acclass ? "shadow-2xl" : "bg-bgprimary"} font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0`}>
 
                             {
                                 navLinks.map((iteam) => (
                                     iteam.active &&
+                                    <Link to={iteam.path}>
                                     <li className='px-6 py-2 duration-400 rounded-md hover:bg-violet-400 hover:text-white'>
                                         <Link to={iteam.path} classNameName="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 " aria-current="page">{iteam.name}</Link>
-                                    </li>))
+                                    </li>
+                                    </Link>
+                                    ))
                             }
                             {
                                 isAuth && <li className='px-6 py-2 duration-400 rounded-md hover:bg-violet-400 hover:text-white'>
