@@ -160,11 +160,11 @@ const BlogForm = ({ post }) => {
                     <RTE control={control} mainstyle="w-full xl:w-1/2" name="content" label="Content" defaultValue={getValues("content")} />
                 </div>}
                 {
-                    post && <div className="flex gap-6 w-full">
-                        <div className='mb-6 w-1/2'>
+                    post && <div className="flex flex-col-reverse lg:flex-row gap-6 w-full">
+                        <div className='mb-6 w-full  lg:w-1/2'>
                             <RTE control={control} className="w-full" name="content" label="Content" defaultValue={getValues("content")} />
                         </div>
-                        <div className='mt-[33px] mb-6 w-1/2'>
+                        <div className='mt-[33px] w-full  mb-6 lg:w-1/2'>
                             <img src={service.getFilePreview(post.featuredImage)} className='rounded-lg' alt={post.title} />
                         </div>
 
