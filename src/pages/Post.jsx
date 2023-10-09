@@ -18,6 +18,8 @@ const Post = (props) => {
     const categories = useSelector((state) => state.category.categories);
     const { name: category } = { ...categories.filter((iteam) => iteam.$id === post?.categoryId)[0] }
     
+    console.log("post",post);
+
     useEffect(() => {
         setLoading(true)
         if (slug) {
