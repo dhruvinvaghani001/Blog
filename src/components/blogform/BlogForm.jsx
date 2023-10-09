@@ -174,7 +174,7 @@ const BlogForm = ({ post }) => {
 
 
             </form>
-            <DevTool control={control}></DevTool>
+            
         </div>
     )
 }
