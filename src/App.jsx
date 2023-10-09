@@ -8,6 +8,7 @@ import Fotter from "./components/fotter/Fotter";
 import { Outlet } from "react-router-dom";
 import { loadCategory } from "./store/categorySlice";
 import categorySerive from "./appwrite/category";
+import { Loading } from './components'
 
 
 function App() {
@@ -16,11 +17,11 @@ function App() {
 
 
   useEffect(() => {
-
     authservice.getCurrentUser()
       .then((userData) => {
         if (userData) {
           dispatch(login({ userData }))
+
         } else {
           dispatch(logout());
         }
@@ -28,23 +29,13 @@ function App() {
       .finally(() => setloading(false));
   }, []);
 
-  useEffect(() => {
-    console.log("hello");
-    categorySerive.getCategories().then((category) => {
-      console.log(category);
-      if (category) {
-        const  category2  = category.documents;
-        console.log(category2);
-        dispatch(loadCategory({ category2 }));
-      }
-    });
-  }, []);
 
 
   return (
     <>
       <Header />
-      <Outlet />
+      <Outlet></Outlet>
+
       <Fotter />
     </>
   )

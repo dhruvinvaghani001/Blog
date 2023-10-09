@@ -15,7 +15,21 @@ const Home = () => {
 
     const userData = useSelector((state) => state.auth.status);
     console.log(userData);
+
     useEffect(() => {
+        categorySerive.getCategories().then((category) => {
+          console.log(category);
+          if (category) {
+            const category2 = category.documents;
+            console.log(category2);
+            dispatch(loadCategory({ category2 }));
+            setLoading(false);
+          }
+        });
+      }, [])
+
+    useEffect(() => {
+        setLoading(true);
         if(!userData){
             setLoading(false);
         }
