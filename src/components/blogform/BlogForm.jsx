@@ -90,9 +90,9 @@ const BlogForm = ({ post }) => {
 
 
     return (
-        <div className='flex justify-center items-center mt-20 w-full'>
+        <div className='flex justify-center items-center mt-20 w-full px-6 lg:px-0'>
 
-            <form className='w-3/4 p-6 bg-newwhite relative rounded-lg' onSubmit={handleSubmit(submit)}>
+            <form className='w-full lg:w-3/4 p-6 bg-newwhite relative rounded-lg' onSubmit={handleSubmit(submit)}>
 
                 <div className="heding block items-center flex-col w-full mb-10 ">
                     <h1 className='text-4xl font-bold mb-3 text-gray-900 uppercase tracking-wide'>{post ? 'Edit Post' : 'Create Post'}</h1>
