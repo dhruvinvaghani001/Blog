@@ -21,6 +21,8 @@ body {
 .active{
     display: inline;
 }
-.inactive{
+/* .inactive{
     display: hidden;
-}
+} */
+
+
